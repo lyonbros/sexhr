@@ -43,7 +43,7 @@ because Sexhr uses these directly.
 - `override` - (function(XHR)) If passed, Sexhr will pass its `XMLHttpRequest`
 object to this function just before it sends it out, allowing you to make any
 needed overrides here. If you choose to override `onload`, `onerror`, or
-`onabort` then you void Sexhr's non-existent warranty.
+`onabort` then you void Sexhr's nonexistent warranty.
 
 Sexhr makes no assumptions about the data you pass or the data that's handed
 back, so it doesn't do anything like JSON encoding/decoding. That's all up to
