@@ -4,6 +4,8 @@ Sexhr provides a simple API around XHR2 without limiting any of its power. The
 goal is to have a tiny promise-enabled library that makes working with XHR2
 simpler.
 
+[Example usage](#examples)
+
 ## API
 
 Sexhr only has one exported function.
@@ -48,6 +50,54 @@ needed overrides here. If you choose to override `onload`, `onerror`, or
 Sexhr makes no assumptions about the data you pass or the data that's handed
 back, so it doesn't do anything like JSON encoding/decoding. That's all up to
 you.
+
+The error handler (see [examples](#examples)) will be triggered if the HTTP
+status code is >= 400.
+
+## Examples
+
+GET a JSON object:
+```javascript
+Sexhr({url: '/data/averages.json'})
+    .spread(function(json, xhr) {
+        // "json" is returned as a string so we must parse it ourselves
+        myapp.averages = JSON.parse(json);
+
+        // we can look at the return headers as well
+        console.log('content type: ', xhr.getResponseHeader('Content-Type'));
+    })
+    .catch(function(err) {
+        // access the XHR object:
+        var type = err.xhr.getResponseHeader('Content-Type');
+
+        // get the error code. this will be -1 on XHR error, -2 if aborted, and
+        // if the HTTP status code of the XHR request was >= 400, it's the value
+        // in xhr.status (the HTTP error code)
+        var code = err.code;
+
+        // get the error message. this will be 'error' on XHR error, 'aborted'
+        // if aborted, and otherwise will be the HTTP response body for the
+        // request if the HTTP status code is >= 400
+        var errmsg = err.msg;
+    });
+```
+
+POST some data:
+```javascript
+Sexhr({url: '/uploads', method: 'post', data: 'mai text file'})
+    .spread(function(res) {
+        console.log('done: ', res);
+    })
+```
+
+DELETE a resource:
+```javascript
+// actual request will be "POST /posts/10?_method=DELETE"
+Sexhr({url: '/posts/10', method: 'delete'})
+    .then(function() {
+        conosle.log('deleted!');
+    });
+```
 
 ## License
 
