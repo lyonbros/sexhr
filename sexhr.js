@@ -12,18 +12,30 @@
 			if(!options.url) throw new Error('no url given');
 
 			url = url.replace(/#.*$/, '');
+			var qs = [];
+			if(options.querydata)
+			{
+				qs = Object.keys(options.querydata)
+					.map(function(key) {
+						return key + '=' + encodeURIComponent(options.querydata[key]);
+					});
+			}
 			if(emulate && ['GET', 'POST'].indexOf(method) < 0)
 			{
-				var append = '?_method='+method;
+				qs.push('_method='+method);
+				method = 'POST';
+			}
+			if(qs.length)
+			{
+				var querystring = qs.join('&');
 				if(url.match(/\?/))
 				{
-					url = url.replace(/\?/, append+'&');
+					url = url.replace(/&$/) + '&' + querystring;
 				}
 				else
 				{
-					url += append;
+					url += '?' + querystring;
 				}
-				method = 'POST';
 			}
 
 			var xhr = new XMLHttpRequest();
