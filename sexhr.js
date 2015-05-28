@@ -28,7 +28,7 @@
 
 			var xhr = new XMLHttpRequest();
 			xhr.open(method, url, true);
-			xhr.responseType = options.response_type || 'text';
+			xhr.responseType = options.response_type || '';
 			if(options.timeout) xhr.timeout = options.timeout;
 
 			Object.keys(options.headers || {}).forEach(function(k) {
