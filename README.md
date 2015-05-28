@@ -23,6 +23,8 @@ follows:
 - `method` - (string) The HTTP method we're sending. Defaults to 'get'.
 - `data` - (any) The data we pass to `XMLHttpRequest.send`. This can be a string,
 a blob, form data, etc.
+- `querydata` - (object) A set of key/value pairs to write to the querystring. If
+the given URL already has a querystring, then we append to it.
 - `emulate` - (boolean) If true and `method` is not "get" or "post", then the
 value passed to `method` will be put into a URL param in the request. For instance
 if `{url: '/slappy', method: 'delete', emulate: true}` is given, then the final
