@@ -1,5 +1,18 @@
-"use strict";
+/**
+ * Sexhr.js
+ *
+ * A simple but useful promise-enabled wrapper around XHR. Takes care of a lot
+ * of common tasks without abstracting away any power or freedom.
+ * -----------------------------------------------------------------------------
+ *
+ * Copyright (c) 2015, Lyon Bros Enterprises, LLC. (http://www.lyonbros.com)
+ *
+ * Licensed under The MIT License.
+ * Redistributions of files must retain the above copyright notice.
+ */
+
 (function() {
+	"use strict";
 	this.Sexhr = function(options)
 	{
 		options || (options = {});
@@ -48,14 +61,14 @@
 			});
 			xhr.onload = function(e)
 			{
-				if(xhr.status >= 200 && xhr.status < 300)
+				if((xhr.status >= 200 && xhr.status < 300) || xhr.status == 304)
 				{
 					var value = xhr.response;
 					return resolve([value, xhr]);
 				}
 				else if(xhr.status >= 400)
 				{
-					reject({xhr: xhr, code: xhr.status, msg: xhr.responseText});
+					reject({xhr: xhr, code: xhr.status, msg: xhr.response});
 				}
 			};
 			xhr.onabort = function(e)
