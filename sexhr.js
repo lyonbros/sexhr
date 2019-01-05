@@ -5,7 +5,7 @@
  * of common tasks without abstracting away any power or freedom.
  * -----------------------------------------------------------------------------
  *
- * Copyright (c) 2015, Lyon Bros Enterprises, LLC. (http://www.lyonbros.com)
+ * Copyright (c) 2015, Lyon Bros LLC. (http://www.lyonbros.com)
  *
  * Licensed under The MIT License.
  * Redistributions of files must retain the above copyright notice.
